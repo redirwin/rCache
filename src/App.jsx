@@ -54,7 +54,11 @@ export default function App() {
       case "form":
         return (
           <>
-            <Header currentView={currentView} selectedEntry={selectedEntry} />
+            <Header
+              currentView={currentView}
+              selectedEntry={selectedEntry}
+              setCurrentView={setCurrentView}
+            />
             <EntryForm
               handleFormClose={handleFormClose}
               handleFormSubmit={handleFormSubmit}
@@ -68,10 +72,17 @@ export default function App() {
       default:
         return (
           <>
-            <Header currentView={currentView} selectedEntry={selectedEntry} />
+            <Header
+              currentView={currentView}
+              selectedEntry={selectedEntry}
+              setCurrentView={setCurrentView}
+            />
             <BalanceBanner entries={entries} />
             <NewEntryButton handleNewEntryClick={handleNewEntryClick} />
-            <EntriesList entries={entries} handleEntryClick={handleEntryClick} />
+            <EntriesList
+              entries={entries}
+              handleEntryClick={handleEntryClick}
+            />
           </>
         );
     }
