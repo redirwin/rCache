@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./EntriesList.module.scss";
 
 export default function Entries(props) {
-  const [entriesState, setEntriesState] = useState([]);
+  const [sortedEntries, setSortedEntries] = useState([]);
 
   useEffect(() => {
     // Sort entries by date from most recent to oldest
@@ -30,14 +30,14 @@ export default function Entries(props) {
         }
       }
     });
-    setEntriesState(sortedEntries);
+    setSortedEntries(sortedEntries);
   }, [props.entries]);
 
   return (
     <div className={`${styles.EntriesList}`}>
       <h2>RECENT ENTRIES</h2>
       <section>
-        {entriesState.map(({ uuid, date, description, amount, type, timestamp }) => (
+        {sortedEntries.map(({ uuid, date, description, amount, type, timestamp }) => (
           <div
             key={uuid}
             className={styles.entry}
