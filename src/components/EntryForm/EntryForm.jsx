@@ -3,6 +3,7 @@ import { CgTrash } from "react-icons/cg";
 import { useFormik } from "formik";
 import { nanoid } from "nanoid";
 import validationSchema from "../../utils/formValidationSchema";
+import { validateAmountInput } from "../../utils/validateAmountInput";
 import TransactionTypeButtons from "../TransactionTypeButtons/TransactionTypeButtons";
 
 export default function EntryForm(props) {
@@ -25,31 +26,12 @@ export default function EntryForm(props) {
         description: values.description,
         note: values.note,
         type: values.transactionType,
+        timestamp: Date.now()
       };
       console.log(newEntry);
       props.handleFormSubmit(newEntry);
     },
   });
-
-  const validateAmountInput = (input) => {
-    let value = input.replace(/[^\d.]/g, "");
-    // Removes non-numeric characters except for the decimal point
-    let decimalIndex = value.indexOf(".");
-    if (decimalIndex !== -1) {
-      // Limits the decimal places to two
-      if (value.slice(decimalIndex + 1).length > 2) {
-        value = value.slice(0, decimalIndex + 3);
-      }
-      // Limits to only one "." character
-      if (value.match(/\./g) && value.match(/\./g).length > 1) {
-        value = value.slice(0, -1);
-      }
-    }
-    // adds commas to the thousands place
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-    return value;
-  };
 
   const handleTransactionTypeChange = (value) => {
     console.log(value);

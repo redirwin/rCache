@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.scss";
 import sampleData from "./sampleData";
 import BalanceBanner from "./components/BalanceBanner/BalanceBanner";
 import NewEntryButton from "./components/NewEntryButton/NewEntryButton";
 import EntriesList from "./components/EntriesList/EntriesList";
 import EntryForm from "./components/EntryForm/EntryForm";
+import Header from "./components/Header/Header";
 
 export default function App() {
   const [entries, setEntries] = useState(sampleData);
@@ -18,7 +19,7 @@ export default function App() {
   const handleEntryClick = (entry) => {
     setSelectedEntry(entry);
     setCurrentView("form");
-  }
+  };
 
   const handleFormClose = () => {
     setCurrentView("list");
@@ -52,21 +53,25 @@ export default function App() {
     switch (currentView) {
       case "form":
         return (
-          <EntryForm
-            handleFormClose={handleFormClose}
-            handleFormSubmit={handleFormSubmit}
-            selectedEntry={selectedEntry}
-            entries={entries}
-            setEntries={setEntries}
-            handleEntryDelete={handleEntryDelete}
-          />
+          <>
+            <Header currentView={currentView} selectedEntry={selectedEntry} />
+            <EntryForm
+              handleFormClose={handleFormClose}
+              handleFormSubmit={handleFormSubmit}
+              selectedEntry={selectedEntry}
+              entries={entries}
+              setEntries={setEntries}
+              handleEntryDelete={handleEntryDelete}
+            />
+          </>
         );
       default:
         return (
           <>
+            <Header currentView={currentView} selectedEntry={selectedEntry} />
             <BalanceBanner entries={entries} />
             <NewEntryButton handleNewEntryClick={handleNewEntryClick} />
-            <EntriesList entries={entries} handleEntryClick={handleEntryClick}/>
+            <EntriesList entries={entries} handleEntryClick={handleEntryClick} />
           </>
         );
     }

@@ -7,7 +7,28 @@ export default function Entries(props) {
   useEffect(() => {
     // Sort entries by date from most recent to oldest
     const sortedEntries = props.entries.sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      if (dateA > dateB) {
+        return -1;
+      } else if (dateA < dateB) {
+        return 1;
+      } else {
+        // If dates are equal, sort by timestamp
+        const timeA = a.timestamp ? new Date(a.timestamp) : null;
+        const timeB = b.timestamp ? new Date(b.timestamp) : null;
+
+        if (!timeA && !timeB) {
+          return 0;
+        } else if (!timeA) {
+          return 1;
+        } else if (!timeB) {
+          return -1;
+        } else {
+          return timeB - timeA;
+        }
+      }
     });
     setEntriesState(sortedEntries);
   }, [props.entries]);
@@ -16,7 +37,7 @@ export default function Entries(props) {
     <div className={`${styles.EntriesList}`}>
       <h2>RECENT ENTRIES</h2>
       <section>
-        {entriesState.map(({ uuid, date, description, amount, type }) => (
+        {entriesState.map(({ uuid, date, description, amount, type, timestamp }) => (
           <div
             key={uuid}
             className={styles.entry}
