@@ -58,6 +58,7 @@ export default function App() {
               currentView={currentView}
               selectedEntry={selectedEntry}
               setCurrentView={setCurrentView}
+              setSelectedEntry={setSelectedEntry}
             />
             <EntryForm
               handleFormClose={handleFormClose}
@@ -76,6 +77,7 @@ export default function App() {
               currentView={currentView}
               selectedEntry={selectedEntry}
               setCurrentView={setCurrentView}
+              setSelectedEntry={setSelectedEntry}
             />
             <BalanceBanner entries={entries} />
             <NewEntryButton handleNewEntryClick={handleNewEntryClick} />

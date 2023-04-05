@@ -1,7 +1,12 @@
 import React from "react";
 import { CgMenuRound, CgCloseO, CgPlayListAdd } from "react-icons/cg";
 
-export default function Header({ currentView, selectedEntry, setCurrentView }) {
+export default function Header({
+  currentView,
+  selectedEntry,
+  setCurrentView,
+  setSelectedEntry,
+}) {
   let headerText, headerIcon;
 
   switch (currentView) {
@@ -9,7 +14,10 @@ export default function Header({ currentView, selectedEntry, setCurrentView }) {
       headerText = selectedEntry ? "Edit Entry" : "New Entry";
       headerIcon = (
         <CgCloseO
-          onClick={() => setCurrentView("")}
+          onClick={() => {
+            setCurrentView("list");
+            setSelectedEntry(null);
+          }}
           role="button"
           tabIndex={0}
           aria-label="Close form"
