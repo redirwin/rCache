@@ -1,6 +1,7 @@
+import React from 'react'
 import './App.scss'
 
-function App() {
+export default function App() {
 
   return (
     <div className="App">
@@ -8,5 +9,3 @@ function App() {
     </div>
   )
 }
-
-export default App

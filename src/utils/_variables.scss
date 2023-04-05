@@ -1,0 +1,26 @@
+/* Colors */
+$primary: #00638E;
+$spend: #F45657;
+$deposit: #5E9E3E;
+$black: #1a1a1a;
+$white: #f9f9f9;
+$gray: #737373;
+$grey: $gray;
+$light-gray: #eaeaea;
+
+/* Breakpoints */
+$x-small: 320px;
+$small: 480px;
+$medium: 767px;
+$large: 1024px;
+$x-large: 1200px;
+
+$breakpoints: (
+    x-small: $x-small,
+    small: $small,
+    medium: $medium,
+    large: $large,
+    x-large: $x-large,
+);
+
+$shadow: 0 0 20px rgba(0, 0, 0, 0.4);

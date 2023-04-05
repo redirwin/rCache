@@ -1,0 +1,69 @@
+@import './utils/reset';
+@import './utils/variables';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap');
+
+html {
+  background-color: $white;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  color: $black;
+  background-color: $white;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+// Divider
+
+.divider-before {
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    max-width: $medium;
+    margin: 0 auto;
+    height: 1px;
+    background-color: $gray;
+    margin-top: 1rem;
+  }
+}
+
+.divider-after {
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    max-width: $medium;
+    margin: 0 auto;
+    height: 1px;
+    background-color: $gray;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: $small) {
+  *:focus {
+    outline: none;
+  }
+}
