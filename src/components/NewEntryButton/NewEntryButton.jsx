@@ -1,11 +1,11 @@
 import React from "react";
-import { CgPlayListAdd } from "react-icons/cg";
+// import { CgPlayListAdd } from "react-icons/cg";
 
-export default function NewEntryButton() {
+export default function NewEntryButton(props) {
  return (
     <div>
-    <button>
-      NEW ENTRY <CgPlayListAdd />
+    <button onClick={props.handleNewEntryClick}>
+      NEW ENTRY
     </button>
   </div>
  )

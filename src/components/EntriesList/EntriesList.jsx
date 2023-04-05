@@ -17,7 +17,22 @@ export default function Entries(props) {
       <h2>RECENT ENTRIES</h2>
       <section>
         {entriesState.map(({ uuid, date, description, amount, type }) => (
-          <div key={uuid}>
+          <div
+            key={uuid}
+            className={styles.entry}
+            role="button"
+            tabIndex={0}
+            onClick={() => props.handleEntryClick({ uuid, date, description, amount, type })}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                props.handleEntryClick({ uuid, date, description, amount, type });
+              }
+            }}
+            aria-label={`Click to edit entry for ${description} on ${new Date(date).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}`}
+          >
             <p className={styles.date}>
               {new Date(date).toLocaleDateString("en-US", {
                 month: "short",

@@ -1,21 +1,33 @@
 import React from "react";
 import { CgTrash } from "react-icons/cg";
 import { useFormik } from "formik";
+import { nanoid } from "nanoid";
 import validationSchema from "../../utils/formValidationSchema";
+import TransactionTypeButtons from "../TransactionTypeButtons/TransactionTypeButtons";
 
-export default function EntryForm() {
+export default function EntryForm(props) {
   const formik = useFormik({
     initialValues: {
-      date: new Date().toISOString().substr(0, 10),
-      amount: "",
-      description: "",
-      note: "",
-      transactionType: "spend",
+      date: props.selectedEntry
+        ? props.selectedEntry.date
+        : new Date().toISOString().substr(0, 10),
+      amount: props.selectedEntry ? props.selectedEntry.amount.toFixed(2) : "",
+      description: props.selectedEntry ? props.selectedEntry.description : "",
+      note: props.selectedEntry ? props.selectedEntry.note : "",
+      transactionType: props.selectedEntry ? props.selectedEntry.type : "spend",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-      // handle form submission here
+      const newEntry = {
+        uuid: props.selectedEntry ? props.selectedEntry.uuid : nanoid(),
+        date: values.date,
+        amount: parseFloat(values.amount.replace(",", "")),
+        description: values.description,
+        note: values.note,
+        type: values.transactionType,
+      };
+      console.log(newEntry);
+      props.handleFormSubmit(newEntry);
     },
   });
 
@@ -39,11 +51,16 @@ export default function EntryForm() {
     return value;
   };
 
+  const handleTransactionTypeChange = (value) => {
+    console.log(value);
+    formik.setFieldValue("transactionType", value);
+  };
+
   return (
-    <div className={styles.EntryForm}>
-      <div className={styles.formContent}>
+    <div>
+      <div>
         <form onSubmit={formik.handleSubmit}>
-          <div className={`${styles.inputContainer} ${styles.dateContainer}`}>
+          <div>
             <label htmlFor="date">Transaction Date</label>
             <input
               type="date"
@@ -55,59 +72,16 @@ export default function EntryForm() {
               onBlur={formik.handleBlur}
             />
             {formik.touched.date && formik.errors.date ? (
-              <div className={styles.error}>{formik.errors.date}</div>
+              <div>{formik.errors.date}</div>
             ) : null}
           </div>
 
-          <div
-            className={`${styles.inputContainer} ${styles.transactionTypeContainer}`}
-          >
-            <label htmlFor="transactionType">Transaction Type</label>
-            <div>
-              <button
-                type="button"
-                id="deposit"
-                name="transactionType"
-                value="deposit"
-                className={`${styles.depositButton} ${
-                  formik.values.transactionType === "deposit"
-                    ? styles.active
-                    : ""
-                }`}
-                onClick={() =>
-                  formik.setFieldValue("transactionType", "deposit")
-                }
-              >
-                DEPOSIT
-              </button>
+          <TransactionTypeButtons
+            handleTransactionTypeChange={handleTransactionTypeChange}
+            errors={formik.errors}
+          />
 
-              <button
-                type="button"
-                id="spend"
-                name="transactionType"
-                value="spend"
-                className={`${styles.spendButton} ${
-                  formik.values.transactionType === "spend" ? styles.active : ""
-                }`}
-                onClick={() => formik.setFieldValue("transactionType", "spend")}
-              >
-                SPEND
-              </button>
-            </div>
-            {formik.touched.transactionType && formik.errors.transactionType ? (
-              <div className={styles.error}>
-                {formik.errors.transactionType}
-              </div>
-            ) : null}
-          </div>
-
-          <div
-            className={`${styles.inputContainer} ${styles.amountContainer} ${
-              formik.values.transactionType === "spend"
-                ? styles.spend
-                : styles.deposit
-            }`}
-          >
+          <div>
             <label htmlFor="amount">Amount</label>
             <input
               type="text"
@@ -124,13 +98,11 @@ export default function EntryForm() {
               onBlur={formik.handleBlur}
             />
             {formik.touched.amount && formik.errors.amount ? (
-              <div className={styles.error}>{formik.errors.amount}</div>
+              <div>{formik.errors.amount}</div>
             ) : null}
           </div>
 
-          <div
-            className={`${styles.inputContainer} ${styles.descriptionContainer}`}
-          >
+          <div>
             <label htmlFor="description">Description</label>
             <input
               type="text"
@@ -143,11 +115,11 @@ export default function EntryForm() {
               onBlur={formik.handleBlur}
             />
             {formik.touched.description && formik.errors.description ? (
-              <div className={styles.error}>{formik.errors.description}</div>
+              <div>{formik.errors.description}</div>
             ) : null}
           </div>
 
-          <div className={`${styles.inputContainer} ${styles.noteContainer}`}>
+          <div>
             <label htmlFor="note">Note</label>
             <textarea
               id="note"
@@ -159,19 +131,30 @@ export default function EntryForm() {
               onBlur={formik.handleBlur}
             ></textarea>
             {formik.touched.note && formik.errors.note ? (
-              <div className={styles.error}>{formik.errors.note}</div>
+              <div>{formik.errors.note}</div>
             ) : null}
           </div>
 
-          <div
-            className={`${styles.inputContainer} ${styles.saveControlsContainer}`}
-          >
+          <div>
             <button
-              type="button"
-              className={styles.trash}
+              aria-label="Trash and Close"
+              onClick={() => {
+                if (props.selectedEntry) {
+                  if (
+                    window.confirm(
+                      "Are you sure you want to delete this entry?"
+                    )
+                  ) {
+                    props.handleEntryDelete(props.selectedEntry);
+                  }
+                } else {
+                  props.handleFormClose();
+                }
+              }}
             >
               <CgTrash />
             </button>
+
             <button type="submit">SUBMIT</button>
           </div>
         </form>

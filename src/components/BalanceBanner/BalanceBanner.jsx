@@ -16,9 +16,10 @@ export default function Balance(props) {
       },
       { totalSpending: 0, totalDeposits: 0 }
     );
-
+  
     setBalance(totalDeposits - totalSpending);
   }, [props.entries]);
+ 
 
   return (
     <div className={styles.BalanceBanner}>

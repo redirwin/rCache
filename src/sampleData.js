@@ -1,6 +1,8 @@
+import { nanoid } from 'nanoid'
+
 const entries = [
     {
-      uuid: 0,
+      uuid: nanoid(),
       date: "2022-12-25",
       type: "spend",
       amount: 12.99,
@@ -8,7 +10,7 @@ const entries = [
       note: "Bought a latte",
     },
     {
-      uuid: 1,
+      uuid: nanoid(),
       date: "2022-12-20",
       type: "spend",
       amount: 45.67,
@@ -16,7 +18,7 @@ const entries = [
       note: "Bought food for the week",
     },
     {
-      uuid: 2,
+      uuid: nanoid(),
       date: "2022-12-15",
       type: "deposit",
       amount: 2000,
@@ -24,7 +26,7 @@ const entries = [
       note: "Transferred money from savings",
     },
     {
-      uuid: 3,
+      uuid: nanoid(),
       date: "2022-12-10",
       type: "spend",
       amount: 8.99,
@@ -32,7 +34,7 @@ const entries = [
       note: "Filled up the tank",
     },
     {
-      uuid: 4,
+      uuid: nanoid(),
       date: "2022-12-05",
       type: "spend",
       amount: 23.45,
@@ -40,7 +42,7 @@ const entries = [
       note: "Saw a new release",
     },
     {
-      uuid: 5,
+      uuid: nanoid(),
       date: "2022-12-01",
       type: "spend",
       amount: 9.99,
@@ -48,7 +50,7 @@ const entries = [
       note: "Got a burger and fries",
     },
     {
-      uuid: 6,
+      uuid: nanoid(),
       date: "2022-11-25",
       type: "deposit",
       amount: 500,
@@ -56,7 +58,7 @@ const entries = [
       note: "Received salary",
     },
     {
-      uuid: 7,
+      uuid: nanoid(),
       date: "2023-03-20",
       type: "spend",
       amount: 35.2,
@@ -64,7 +66,7 @@ const entries = [
       note: "Bought a new shirt",
     },
     {
-      uuid: 8,
+      uuid: nanoid(),
       date: "2023-03-23",
       type: "spend",
       amount: 15.5,
@@ -72,7 +74,7 @@ const entries = [
       note: "Had lunch with friends",
     },
     {
-      uuid: 9,
+      uuid: nanoid(),
       date: "2023-03-24",
       type: "deposit",
       amount: 1000,
@@ -80,7 +82,7 @@ const entries = [
       note: "Received salary",
     },
     {
-      uuid: 10,
+      uuid: nanoid(),
       date: "2023-03-20",
       type: "spend",
       amount: 50.0,
@@ -88,7 +90,7 @@ const entries = [
       note: "Bought a new pair of running shoes",
     },
     {
-      uuid: 11,
+      uuid: nanoid(),
       date: "2023-03-21",
       type: "spend",
       amount: 27.99,
@@ -96,7 +98,7 @@ const entries = [
       note: "Bought a new novel",
     },
     {
-      uuid: 12,
+      uuid: nanoid(),
       date: "2023-03-22",
       type: "deposit",
       amount: 500,
@@ -104,7 +106,7 @@ const entries = [
       note: "Transferred money from checking",
     },
     {
-      uuid: 13,
+      uuid: nanoid(),
       date: "2023-03-23",
       type: "spend",
       amount: 12.0,
@@ -112,7 +114,7 @@ const entries = [
       note: "Got a combo meal",
     },
     {
-      uuid: 14,
+      uuid: nanoid(),
       date: "2023-03-24",
       type: "spend",
       amount: 75.0,
@@ -120,7 +122,7 @@ const entries = [
       note: "Bought a new dress",
     },
     {
-      uuid: 15,
+      uuid: nanoid(),
       date: "2023-03-25",
       type: "spend",
       amount: 35.0,
@@ -128,7 +130,7 @@ const entries = [
       note: "Bought a new phone charger",
     },
     {
-      uuid: 16,
+      uuid: nanoid(),
       date: "2023-03-26",
       type: "deposit",
       amount: 1500,
@@ -136,7 +138,7 @@ const entries = [
       note: "Received salary",
     },
     {
-      uuid: 17,
+      uuid: nanoid(),
       date: "2023-03-27",
       type: "spend",
       amount: 19.99,
@@ -144,7 +146,7 @@ const entries = [
       note: "Got a burger, fries, and a drink",
     },
     {
-      uuid: 18,
+      uuid: nanoid(),
       date: "2023-03-28",
       type: "spend",
       amount: 89.99,
@@ -152,7 +154,7 @@ const entries = [
       note: "Bought a new pair of headphones",
     },
     {
-      uuid: 19,
+      uuid: nanoid(),
       date: "2023-03-29",
       type: "spend",
       amount: 22.5,
@@ -160,7 +162,7 @@ const entries = [
       note: "Filled up the tank",
     },
     {
-      uuid: 20,
+      uuid: nanoid(),
       date: "2023-03-30",
       type: "spend",
       amount: 15.0,
@@ -168,7 +170,7 @@ const entries = [
       note: "Bought a latte",
     },
     {
-      uuid: 21,
+      uuid: nanoid(),
       date: "2023-03-31",
       type: "deposit",
       amount: 200,
@@ -176,7 +178,7 @@ const entries = [
       note: "Received a refund for a returned item",
     },
     {
-      uuid: 22,
+      uuid: nanoid(),
       date: "2023-04-01",
       type: "spend",
       amount: 59.99,
@@ -184,7 +186,7 @@ const entries = [
       note: "Bought a new outfit",
     },
     {
-      uuid: 23,
+      uuid: nanoid(),
       date: "2023-04-02",
       type: "spend",
       amount: 8.5,
@@ -192,7 +194,7 @@ const entries = [
       note: "Got a snack",
     },
     {
-      uuid: 24,
+      uuid: nanoid(),
       date: "2023-04-03",
       type: "spend",
       amount: 25.0,
@@ -200,7 +202,7 @@ const entries = [
       note: "Bought a new soccer ball",
     },
     {
-      uuid: 25,
+      uuid: nanoid(),
       date: "2023-04-04",
       type: "spend",
       amount: 17.99,
