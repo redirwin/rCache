@@ -1,94 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
-import sampleData from "./sampleData";
-import BalanceBanner from "./components/BalanceBanner/BalanceBanner";
-import NewEntryButton from "./components/NewEntryButton/NewEntryButton";
-import EntriesList from "./components/EntriesList/EntriesList";
-import EntryForm from "./components/EntryForm/EntryForm";
-import Header from "./components/Header/Header";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home/Home";
+import NoPage from "./components/NoPage/NoPage";
+import FirebaseAuth from "./firebaseAuth";
+import firebase from "firebase/compat/app";
+import { onAuthStateChanged } from "firebase/auth";
+import firebaseConfig from "./firebaseConfig";
 
 export default function App() {
-  const [entries, setEntries] = useState(sampleData);
-  const [currentView, setCurrentView] = useState("list");
-  const [selectedEntry, setSelectedEntry] = useState(null);
+  firebase.initializeApp(firebaseConfig);
+ const [user, setUser] = useState({});
 
-  const handleNewEntryClick = () => {
-    setCurrentView("form");
-  };
+  useEffect(() => {
+    onAuthStateChanged(firebase.auth(), (user) => {
+      if (user) {
+        setUser({ email: user.email, uid: user.uid });
+        console.log(user.uid, user.email)
+      } else {
+        setUser({});
+      }
+    });
+  }, []);
 
-  const handleEntryClick = (entry) => {
-    setSelectedEntry(entry);
-    setCurrentView("form");
-  };
-
-  const handleFormClose = () => {
-    setCurrentView("list");
-    setSelectedEntry(null);
-  };
-
-  const handleEntryDelete = (entry) => {
-    const filteredEntries = entries.filter((e) => e.uuid !== entry.uuid);
-    setEntries(filteredEntries);
-    setCurrentView("list");
-    setSelectedEntry(null);
-  };
-
-  const handleFormSubmit = (newEntry) => {
-    if (selectedEntry) {
-      // update existing entry
-      const updatedEntries = entries.map((entry) =>
-        entry.uuid === selectedEntry.uuid ? newEntry : entry
-      );
-      setEntries(updatedEntries);
-    } else {
-      // add new entry
-      const newEntries = [...entries, newEntry];
-      setEntries(newEntries);
-    }
-    setCurrentView("list");
-    setSelectedEntry(null);
-  };
-
-  const renderView = () => {
-    switch (currentView) {
-      case "form":
-        return (
-          <>
-            <Header
-              currentView={currentView}
-              selectedEntry={selectedEntry}
-              setCurrentView={setCurrentView}
-              setSelectedEntry={setSelectedEntry}
-            />
-            <EntryForm
-              handleFormClose={handleFormClose}
-              handleFormSubmit={handleFormSubmit}
-              selectedEntry={selectedEntry}
-              entries={entries}
-              setEntries={setEntries}
-              handleEntryDelete={handleEntryDelete}
-            />
-          </>
-        );
-      default:
-        return (
-          <>
-            <Header
-              currentView={currentView}
-              selectedEntry={selectedEntry}
-              setCurrentView={setCurrentView}
-              setSelectedEntry={setSelectedEntry}
-            />
-            <BalanceBanner entries={entries} />
-            <NewEntryButton handleNewEntryClick={handleNewEntryClick} />
-            <EntriesList
-              entries={entries}
-              handleEntryClick={handleEntryClick}
-            />
-          </>
-        );
-    }
-  };
-
-  return <div className="App">{renderView()}</div>;
+  return (
+    <div className="App">
+      {user.email ? (
+        <Routes>
+          <Route exact path="/app" element={<Home user={user}/>} />
+          <Route exact path="/" element={<Home user={user}/>} />
+          <Route exact path="/privacy" element={<h1>Privacy Policy</h1>} />
+          <Route exact path="/terms" element={<h1>Terms of Service</h1>} />
+          <Route exact path="/about" element={<h1>About</h1>} />
+          <Route exact path="/contact" element={<h1>Contact</h1>} />
+          <Route path="*" element={<NoPage user={user} />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<FirebaseAuth auth={firebase.auth()} />}
+          />
+          <Route exact path="/privacy" element={<h1>Privacy Policy</h1>} />
+          <Route exact path="/terms" element={<h1>Terms of Service</h1>} />
+          <Route exact path="/about" element={<h1>About</h1>} />
+          <Route exact path="/contact" element={<h1>Contact</h1>} />
+          <Route path="*" element={<NoPage user={user} />} />
+        </Routes>
+      )}
+    </div>
+  );
 }

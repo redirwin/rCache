@@ -1,11 +1,15 @@
 import React from "react";
 import { CgMenuRound, CgCloseO, CgPlayListAdd } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
+import firebase from "firebase/compat/app";
+
 
 export default function Header({
   currentView,
   selectedEntry,
   setCurrentView,
   setSelectedEntry,
+  user,
 }) {
   let headerText, headerIcon;
 
@@ -30,9 +34,21 @@ export default function Header({
       break;
   }
 
+  const navigate = useNavigate();
+
   return (
     <>
       <h1>{headerText}</h1>
+      {user.email && (
+        <button
+          onClick={() => {
+            firebase.auth().signOut();
+            navigate("/");
+          }}
+        >
+          Sign Out
+        </button>
+      )}
       <div id="header-icon">{headerIcon}</div>
     </>
   );
