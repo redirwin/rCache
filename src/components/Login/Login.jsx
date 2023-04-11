@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 import firebase from "firebase/compat/app";
+import styles from "./Login.module.scss";
+import "./firebase-ui.css"
 
-export default function FirebaseAuth(props) {
+export default function Login(props) {
   useEffect(() => {
     const ui =
       firebaseui.auth.AuthUI.getInstance() ||
@@ -20,10 +22,11 @@ export default function FirebaseAuth(props) {
   }, [props.auth]);
 
   return (
-    <div>
+    <div className={styles.Login}>
       <h1>Welcome to rCache</h1>
       <p>Please sign in to continue</p>
-      <div className={"firebase-auth-container"}></div>
+      <div className={`firebase-auth-container ${styles.firebaseAuthCustom}`}></div>
+
     </div>
   );
 }

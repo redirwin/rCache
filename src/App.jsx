@@ -3,7 +3,7 @@ import "./App.scss";
 import { Route, Routes } from "react-router-dom";
 import Main from "./components/Main/Main";
 import NoPage from "./components/NoPage/NoPage";
-import FirebaseAuth from "./firebaseAuth";
+import Login from "./components/Login/Login";
 import firebase from "firebase/compat/app";
 import { onAuthStateChanged } from "firebase/auth";
 import firebaseConfig from "./firebaseConfig";
@@ -85,7 +85,7 @@ export default function App() {
           <Route
             exact
             path="/"
-            element={<FirebaseAuth auth={firebase.auth()} />}
+            element={<Login auth={firebase.auth()} />}
           />
           <Route exact path="/privacy" element={<h1>Privacy Policy</h1>} />
           <Route exact path="/terms" element={<h1>Terms of Service</h1>} />
