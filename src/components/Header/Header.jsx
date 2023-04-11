@@ -2,6 +2,7 @@ import React from "react";
 import { CgMenuRound, CgCloseO, CgPlayListAdd } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import firebase from "firebase/compat/app";
+import styles from "./Header.module.scss";
 
 
 export default function Header({
@@ -37,7 +38,7 @@ export default function Header({
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className={styles.Header}>
       <h1>{headerText}</h1>
       {user.email && (
         <button
@@ -50,6 +51,6 @@ export default function Header({
         </button>
       )}
       <div id="header-icon">{headerIcon}</div>
-    </>
+    </div>
   );
 }
