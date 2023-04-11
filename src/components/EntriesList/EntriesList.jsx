@@ -31,22 +31,24 @@ export default function Entries(props) {
       }
     });
     setSortedEntries(sortedEntries);
+    // console.log(sortedEntries)
   }, [props.entries]);
 
   return (
+    
     <div className={`${styles.EntriesList}`}>
       <h2>RECENT ENTRIES</h2>
       <section>
-        {sortedEntries.map(({ uuid, date, description, amount, type, timestamp }) => (
+        {sortedEntries.map(({ eid, date, description, amount, type, note }) => (
           <div
-            key={uuid}
+            key={eid}
             className={styles.entry}
             role="button"
             tabIndex={0}
-            onClick={() => props.handleEntryClick({ uuid, date, description, amount, type })}
+            onClick={() => props.handleEntryClick({ eid, date, description, amount, type, note })}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
-                props.handleEntryClick({ uuid, date, description, amount, type });
+                props.handleEntryClick({ eid, date, description, amount, type, note });
               }
             }}
             aria-label={`Click to edit entry for ${description} on ${new Date(date).toLocaleDateString("en-US", {

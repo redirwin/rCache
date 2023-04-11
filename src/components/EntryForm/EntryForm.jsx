@@ -7,6 +7,7 @@ import { validateAmountInput } from "../../utils/validateAmountInput";
 import TransactionTypeButtons from "../TransactionTypeButtons/TransactionTypeButtons";
 
 export default function EntryForm(props) {
+  // console.log(props.selectedEntry.note)
   const formik = useFormik({
     initialValues: {
       date: props.selectedEntry
@@ -20,7 +21,7 @@ export default function EntryForm(props) {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const newEntry = {
-        uuid: props.selectedEntry ? props.selectedEntry.uuid : nanoid(),
+        eid: props.selectedEntry ? props.selectedEntry.eid : nanoid(),
         date: values.date,
         amount: parseFloat(values.amount.replace(",", "")),
         description: values.description,
@@ -28,13 +29,11 @@ export default function EntryForm(props) {
         type: values.transactionType,
         timestamp: Date.now()
       };
-      console.log(newEntry);
       props.handleFormSubmit(newEntry);
     },
   });
 
   const handleTransactionTypeChange = (value) => {
-    console.log(value);
     formik.setFieldValue("transactionType", value);
   };
 

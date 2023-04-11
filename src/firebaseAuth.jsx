@@ -12,7 +12,7 @@ export default function FirebaseAuth(props) {
       signInOptions: [
         {
           provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          requireDisplayName: false,
+          requireDisplayName: true,
         },
       ],
       // signInSuccessUrl: "/app",
