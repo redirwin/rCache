@@ -35,7 +35,6 @@ export default function Entries(props) {
   }, [props.entries]);
 
   return (
-    
     <div className={`${styles.EntriesList}`}>
       <h2>RECENT ENTRIES</h2>
       <section>
@@ -54,12 +53,14 @@ export default function Entries(props) {
             aria-label={`Click to edit entry for ${description} on ${new Date(date).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
+              timeZone: 'UTC',
             })}`}
           >
             <p className={styles.date}>
               {new Date(date).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
+                timeZone: 'UTC',
               })}
             </p>
             <p className={styles.desc}>{description}</p>
