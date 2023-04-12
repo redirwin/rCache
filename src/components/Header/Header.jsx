@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { CgMenuRound, CgCloseO, CgPlayListAdd } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
-import firebase from "firebase/compat/app";
 import styles from "./Header.module.scss";
-
+import Menu from "../Menu/Menu";
 
 export default function Header({
   currentView,
   selectedEntry,
   setCurrentView,
   setSelectedEntry,
-  user,
+  user
 }) {
+  const [displayMenu, setDisplayMenu] = useState(false);
   let headerText, headerIcon;
 
   switch (currentView) {
@@ -31,26 +30,17 @@ export default function Header({
       break;
     default:
       headerText = "rCache";
-      headerIcon = <CgMenuRound />;
+      !displayMenu
+        ? (headerIcon = <CgMenuRound onClick={() => setDisplayMenu(true)} />)
+        : (headerIcon = <CgCloseO onClick={() => setDisplayMenu(false)} />);
       break;
   }
-
-  const navigate = useNavigate();
 
   return (
     <div className={styles.Header}>
       <h1>{headerText}</h1>
-      {user.email && (
-        <button
-          onClick={() => {
-            firebase.auth().signOut();
-            navigate("/");
-          }}
-        >
-          Sign Out
-        </button>
-      )}
       <div id="header-icon">{headerIcon}</div>
+      {displayMenu && <Menu user={user} />}
     </div>
   );
 }

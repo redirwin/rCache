@@ -29,12 +29,11 @@ export default function Main(props) {
   };
 
   const handleEntryDelete = (entry) => {
-    console.log(entry)
     const filteredEntries = entries.filter((e) => e.eid !== entry.eid);
     setEntries(filteredEntries);
     setCurrentView("list");
     setSelectedEntry(null);
-    props.deleteEntry(props.user, entry)
+    props.deleteEntry(props.user, entry);
   };
 
   const handleFormSubmit = (newEntry) => {
@@ -44,12 +43,12 @@ export default function Main(props) {
         entry.eid === selectedEntry.eid ? newEntry : entry
       );
       setEntries(updatedEntries);
-      props.saveEntry(props.user, newEntry)
+      props.saveEntry(props.user, newEntry);
     } else {
       // add new entry
       const newEntries = [...entries, newEntry];
       setEntries(newEntries);
-      props.saveEntry(props.user, newEntry)
+      props.saveEntry(props.user, newEntry);
     }
     setCurrentView("list");
     setSelectedEntry(null);
