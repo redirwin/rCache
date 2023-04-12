@@ -6,7 +6,7 @@ export default function Menu(props) {
   return (
     <div className={styles.Menu}>
       <ul>
-        <li>
+        {/* <li>
           <a href='/app'>Home</a>
         </li>
         <li>
@@ -17,7 +17,7 @@ export default function Menu(props) {
         </li>
         <li>
           <a href="/terms">Terms & Privacy</a>
-        </li>
+        </li> */}
         <li>
           {props.user.email && (
             <a

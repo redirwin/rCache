@@ -1,5 +1,5 @@
-import styles from "./BalanceBanner.module.scss";
 import React, { useState, useEffect } from "react";
+import styles from "./BalanceBanner.module.scss";
 
 export default function Balance(props) {
   const [balance, setBalance] = useState(0);
@@ -16,15 +16,19 @@ export default function Balance(props) {
       },
       { totalSpending: 0, totalDeposits: 0 }
     );
-  
+
     setBalance(totalDeposits - totalSpending);
   }, [props.entries]);
- 
 
   return (
-    <div className={styles.BalanceBanner}>
+    <div
+      className={`${styles.BalanceBanner} ${
+        balance >= 0 ? styles.positive : styles.negative
+      }`}
+    >
       <h2>CURRENT BALANCE</h2>
-      <p>${balance.toLocaleString()}</p>
+      <p>${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+
     </div>
   );
 }

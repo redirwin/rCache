@@ -4,6 +4,7 @@ import NewEntryButton from "../NewEntryButton/NewEntryButton";
 import EntriesList from "../EntriesList/EntriesList";
 import EntryForm from "../EntryForm/EntryForm";
 import Header from "../Header/Header";
+import styles from "./Main.module.scss";
 
 export default function Main(props) {
   const [entries, setEntries] = useState(props.entries);
@@ -58,7 +59,7 @@ export default function Main(props) {
     switch (currentView) {
       case "form":
         return (
-          <>
+          <div className={styles.Main}>
             <Header
               currentView={currentView}
               selectedEntry={selectedEntry}
@@ -74,11 +75,11 @@ export default function Main(props) {
               setEntries={setEntries}
               handleEntryDelete={handleEntryDelete}
             />
-          </>
+          </div>
         );
       default:
         return (
-          <>
+          <div className={styles.Main}>
             <Header
               currentView={currentView}
               selectedEntry={selectedEntry}
@@ -92,7 +93,7 @@ export default function Main(props) {
               entries={entries}
               handleEntryClick={handleEntryClick}
             />
-          </>
+          </div>
         );
     }
   };
