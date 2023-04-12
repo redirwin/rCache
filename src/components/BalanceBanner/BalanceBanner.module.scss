@@ -1,17 +1,19 @@
 @import "../../utils/variables";
 
 .BalanceBanner {
+    margin-top: 5rem;
     padding: 2rem;
-    // height: 7rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: $white;
+
     h2 {
         margin-bottom: 1rem;
         font-weight: 400;
     }
+
     p {
         font-size: 2.5rem;
         font-weight: 600;

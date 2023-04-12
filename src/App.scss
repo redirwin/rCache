@@ -45,31 +45,31 @@ p {
 
 // Divider
 
-// .divider-before {
-//   &::before {
-//     content: '';
-//     display: block;
-//     width: 100%;
-//     max-width: $medium;
-//     margin: 0 auto;
-//     height: 1px;
-//     background-color: $gray;
-//     margin-top: 1rem;
-//   }
-// }
+.divider-before {
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    max-width: $medium;
+    margin: 0 auto;
+    height: 1px;
+    background-color: $gray;
+    margin-top: 1rem;
+  }
+}
 
-// .divider-after {
-//   &::after {
-//     content: '';
-//     display: block;
-//     width: 100%;
-//     max-width: $medium;
-//     margin: 0 auto;
-//     height: 1px;
-//     background-color: $gray;
-//     margin-top: 1rem;
-//   }
-// }
+.divider-after {
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    max-width: $medium;
+    margin: 0 auto;
+    height: 1px;
+    background-color: $gray;
+    margin-top: 1rem;
+  }
+}
 
 @media screen and (max-width: $small) {
   *:focus {
