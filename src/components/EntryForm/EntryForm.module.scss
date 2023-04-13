@@ -1,7 +1,7 @@
 @import "../../utils/variables";
 
 .EntryForm {
-    
+
     form {
         padding: 2rem;
         display: flex;
@@ -34,17 +34,28 @@
                 resize: none;
             }
 
-            &.dateContainer {
-                font-weight: 600;
+            input[type="date"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 100%;
+                // box-sizing: border-box;
+                // font-weight: 600;
                 font-size: 1.2rem;
-
-                input {
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
-                    appearance: none;
-                    width: 100%;
-                }
             }
+
+
+            // &.dateContainer {
+            //     font-weight: 600;
+            //     font-size: 1.2rem;
+
+            //     input {
+            //         -webkit-appearance: none;
+            //         -moz-appearance: none;
+            //         appearance: none;
+            //         width: 100%;
+            //     }
+            // }
 
             // Formik Error
             div {
