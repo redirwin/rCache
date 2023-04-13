@@ -8,15 +8,14 @@ import TransactionTypeButtons from "../TransactionTypeButtons/TransactionTypeBut
 import styles from "./EntryForm.module.scss";
 
 export default function EntryForm(props) {
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getFullYear()}-${String(
+    currentDate.getMonth() + 1
+  ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+
   const formik = useFormik({
     initialValues: {
-      date: props.selectedEntry
-        ? props.selectedEntry.date
-        : new Date().toLocaleDateString("en-CA", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          }),
+      date: props.selectedEntry ? props.selectedEntry.date : formattedDate,
       amount: props.selectedEntry ? props.selectedEntry.amount.toFixed(2) : "",
       description: props.selectedEntry ? props.selectedEntry.description : "",
       note: props.selectedEntry ? props.selectedEntry.note : "",
