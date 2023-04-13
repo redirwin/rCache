@@ -28,6 +28,10 @@
                 padding: 1rem;
                 border: 1px solid $gray;
                 border-radius: 5px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 100%;
             }
 
             textarea {
@@ -35,27 +39,8 @@
             }
 
             input[type="date"] {
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                width: 100%;
-                // box-sizing: border-box;
-                // font-weight: 600;
                 font-size: 1.2rem;
             }
-
-
-            // &.dateContainer {
-            //     font-weight: 600;
-            //     font-size: 1.2rem;
-
-            //     input {
-            //         -webkit-appearance: none;
-            //         -moz-appearance: none;
-            //         appearance: none;
-            //         width: 100%;
-            //     }
-            // }
 
             // Formik Error
             div {
