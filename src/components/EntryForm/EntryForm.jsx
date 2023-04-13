@@ -5,14 +5,18 @@ import { nanoid } from "nanoid";
 import validationSchema from "../../utils/formValidationSchema";
 import { validateAmountInput } from "../../utils/validateAmountInput";
 import TransactionTypeButtons from "../TransactionTypeButtons/TransactionTypeButtons";
+import styles from "./EntryForm.module.scss";
 
 export default function EntryForm(props) {
-  // console.log(props.selectedEntry.note)
   const formik = useFormik({
     initialValues: {
       date: props.selectedEntry
         ? props.selectedEntry.date
-        : new Date().toISOString().substr(0, 10),
+        : new Date().toLocaleDateString("en-CA", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }),
       amount: props.selectedEntry ? props.selectedEntry.amount.toFixed(2) : "",
       description: props.selectedEntry ? props.selectedEntry.description : "",
       note: props.selectedEntry ? props.selectedEntry.note : "",
@@ -27,7 +31,7 @@ export default function EntryForm(props) {
         description: values.description,
         note: values.note,
         type: values.transactionType,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
       props.handleFormSubmit(newEntry);
     },
@@ -38,108 +42,105 @@ export default function EntryForm(props) {
   };
 
   return (
-    <div>
-      <div>
-        <form onSubmit={formik.handleSubmit}>
-          <div>
-            <label htmlFor="date">Transaction Date</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              placeholder="Transaction Date"
-              value={formik.values.date}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.date && formik.errors.date ? (
-              <div>{formik.errors.date}</div>
-            ) : null}
-          </div>
-
-          <TransactionTypeButtons
-            handleTransactionTypeChange={handleTransactionTypeChange}
-            errors={formik.errors}
+    <div className={styles.EntryForm}>
+      <form onSubmit={formik.handleSubmit}>
+        <div>
+          <label htmlFor="date">Transaction Date</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            placeholder="Transaction Date"
+            value={formik.values.date}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
+          {formik.touched.date && formik.errors.date ? (
+            <div>{formik.errors.date}</div>
+          ) : null}
+        </div>
 
-          <div>
-            <label htmlFor="amount">Amount</label>
-            <input
-              type="text"
-              id="amount"
-              name="amount"
-              placeholder="$0.00"
-              max="99999999999.99"
-              value={formik.values.amount}
-              inputMode="numeric"
-              onChange={(e) => {
-                e.target.value = validateAmountInput(e.target.value);
-                formik.handleChange(e);
-              }}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.amount && formik.errors.amount ? (
-              <div>{formik.errors.amount}</div>
-            ) : null}
-          </div>
+        <TransactionTypeButtons
+          handleTransactionTypeChange={handleTransactionTypeChange}
+          errors={formik.errors}
+          currentType={formik.values.transactionType}
+        />
 
-          <div>
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              id="description"
-              name="description"
-              placeholder="Short Description"
-              maxLength="50"
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.description && formik.errors.description ? (
-              <div>{formik.errors.description}</div>
-            ) : null}
-          </div>
+        <div>
+          <label htmlFor="amount">Amount</label>
+          <input
+            type="text"
+            id="amount"
+            name="amount"
+            placeholder="$0.00"
+            max="99999999999.99"
+            value={formik.values.amount}
+            inputMode="numeric"
+            onChange={(e) => {
+              e.target.value = validateAmountInput(e.target.value);
+              formik.handleChange(e);
+            }}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.amount && formik.errors.amount ? (
+            <div>{formik.errors.amount}</div>
+          ) : null}
+        </div>
 
-          <div>
-            <label htmlFor="note">Note</label>
-            <textarea
-              id="note"
-              name="note"
-              placeholder="Longer note (not required)."
-              maxLength="200"
-              value={formik.values.note}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            ></textarea>
-            {formik.touched.note && formik.errors.note ? (
-              <div>{formik.errors.note}</div>
-            ) : null}
-          </div>
+        <div>
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            placeholder="Short Description"
+            maxLength="50"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.description && formik.errors.description ? (
+            <div>{formik.errors.description}</div>
+          ) : null}
+        </div>
 
-          <div>
-            <button
-              aria-label="Trash and Close"
-              onClick={() => {
-                if (props.selectedEntry) {
-                  if (
-                    window.confirm(
-                      "Are you sure you want to delete this entry?"
-                    )
-                  ) {
-                    props.handleEntryDelete(props.selectedEntry);
-                  }
-                } else {
-                  props.handleFormClose();
+        <div>
+          <label htmlFor="note">Note</label>
+          <textarea
+            id="note"
+            name="note"
+            placeholder="Longer note (not required)."
+            maxLength="200"
+            value={formik.values.note}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          ></textarea>
+          {formik.touched.note && formik.errors.note ? (
+            <div>{formik.errors.note}</div>
+          ) : null}
+        </div>
+
+        <div className={styles.saveControlsContainer}>
+          <button
+            aria-label="Trash and Close"
+            onClick={() => {
+              if (props.selectedEntry) {
+                if (
+                  window.confirm("Are you sure you want to delete this entry?")
+                ) {
+                  props.handleEntryDelete(props.selectedEntry);
                 }
-              }}
-            >
-              <CgTrash />
-            </button>
+              } else {
+                props.handleFormClose();
+              }
+            }}
+          >
+            <CgTrash />
+          </button>
 
-            <button type="submit">SUBMIT</button>
-          </div>
-        </form>
-      </div>
+          <button type="submit">SUBMIT</button>
+        </div>
+      </form>
     </div>
   );
 }

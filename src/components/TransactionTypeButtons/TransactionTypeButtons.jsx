@@ -1,8 +1,9 @@
 import React from "react";
+import styles from "./TransactionTypeButtons.module.scss";
 
 export default function TransactionTypeButtons(props) {
   return (
-    <div>
+    <div className={styles.TransactionTypeButtons}>
       <label htmlFor="transactionType">Transaction Type</label>
       <div>
         <button
@@ -11,6 +12,9 @@ export default function TransactionTypeButtons(props) {
           name="transactionType"
           value="deposit"
           onClick={() => props.handleTransactionTypeChange("deposit")}
+          className={`${styles.depositButton} ${
+            props.currentType === "deposit" ? styles.active : ""
+          }`}
         >
           DEPOSIT
         </button>
@@ -21,6 +25,9 @@ export default function TransactionTypeButtons(props) {
           name="transactionType"
           value="spend"
           onClick={() => props.handleTransactionTypeChange("spend")}
+          className={`${styles.spendButton} ${
+            props.currentType === "spend" ? styles.active : ""
+          }`}
         >
           SPEND
         </button>

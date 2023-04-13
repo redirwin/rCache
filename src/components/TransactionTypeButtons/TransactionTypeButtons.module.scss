@@ -1,0 +1,50 @@
+@import "../../utils/variables";
+
+.TransactionTypeButtons {
+
+    >div {
+        height: 5rem;
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            width: 47.5%;
+            height: 100%;
+            border: 1px solid $grey;
+            border-radius: 5px;
+            background-color: $white;
+            font-size: 1.25rem;
+            box-shadow: $shadow;
+
+            &[value="spend"] {
+                transition: all 0.1s ease-in-out;
+
+                &:hover {
+                    background-color: $negative;
+                    color: $white;
+                    border: 1px solid $negative;
+                }
+
+                &.active {
+                    background-color: $negative;
+                    color: $white;
+                    border: 1px solid $negative;
+                }
+            }
+
+            &[value="deposit"] {
+                &:hover {
+                    background-color: $positive;
+                    color: $white;
+                    border: 1px solid $positive;
+                }
+
+                &.active {
+                    background-color: $positive;
+                    color: $white;
+                    border: 1px solid $positive;
+                }
+            }
+        }
+    }
+}
