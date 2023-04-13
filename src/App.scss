@@ -43,6 +43,11 @@ p {
   line-height: 1.5;
 }
 
+button {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
 // Divider
 
 .divider-before {

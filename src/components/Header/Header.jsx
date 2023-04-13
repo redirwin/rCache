@@ -8,7 +8,7 @@ export default function Header({
   selectedEntry,
   setCurrentView,
   setSelectedEntry,
-  user
+  user,
 }) {
   const [displayMenu, setDisplayMenu] = useState(false);
   let headerText, headerIcon;
@@ -38,9 +38,11 @@ export default function Header({
 
   return (
     <div className={styles.Header}>
-      <h1>{headerText}</h1>
-      <div id="header-icon">{headerIcon}</div>
-      {displayMenu && <Menu user={user} />}
+      <div className={styles.container}>
+        <h1>{headerText}</h1>
+        <div id="header-icon">{headerIcon}</div>
+        {displayMenu && <Menu user={user} />}
+      </div>
     </div>
   );
 }

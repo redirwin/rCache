@@ -1,12 +1,14 @@
 @import "../../utils/variables";
 
 .EntryForm {
-
+    
     form {
         padding: 2rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        max-width: 800px;
+        margin: 0 auto;
 
         >div {
             display: flex;
@@ -99,47 +101,6 @@
                     }
                 }
             }
-
-            // &.amountContainer {
-            //     font-weight: 600;
-            //     font-size: 1.2rem;
-
-            //     &.spend {
-            //         input {
-            //             border: 1px solid $negative;
-            //             color: $negative;
-
-            //             &::placeholder {
-            //                 color: $negative;
-            //             }
-            //         }
-            //     }
-
-            //     &.deposit {
-            //         input {
-            //             border: 1px solid $positive;
-            //             color: $positive;
-
-            //             &::placeholder {
-            //                 color: $positive;
-            //             }
-            //         }
-            //     }
-            // }
-
-            // &.descriptionContainer {
-            //     font-weight: 600;
-            //     font-size: 1.2rem;
-            // }
-
-            // &.noteContainer {
-            //     height: 9rem;
-
-            //     textarea {
-            //         height: 100%;
-            //     }
-            // }
-
         }
 
         .saveControlsContainer {
@@ -157,6 +118,21 @@
                 border: none;
                 border-radius: 5px;
                 box-shadow: $shadow;
+
+                &:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                }
+
+                &:active {
+                    transform: scale(0.95);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
             }
 
             button:first-child {
