@@ -36,11 +36,13 @@ export default function App() {
   }, [user]);
 
   function saveEntry(user, entry) {
+    console.log(entry)
     set(ref(db, `/users/${user.uid}/entries/${entry.eid}`), {
       date: entry.date,
       type: entry.type,
       amount: entry.amount,
       description: entry.description,
+      cleared: entry.cleared,
       note: entry.note,
       timestamp: entry.timestamp,
       eid: entry.eid,

@@ -33,7 +33,7 @@ export default function TransactionTypeButtons(props) {
         </button>
       </div>
       {props.errors && props.errors.transactionType ? (
-        <div>{props.errors.transactionType}</div>
+        <div className={styles.formikError}>{props.errors.transactionType}</div>
       ) : null}
     </div>
   );

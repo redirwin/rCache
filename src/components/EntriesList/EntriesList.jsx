@@ -38,16 +38,16 @@ export default function Entries(props) {
     <div className={`${styles.EntriesList}`}>
       <h2>RECENT ENTRIES</h2>
       <section>
-        {sortedEntries.map(({ eid, date, description, amount, type, note }) => (
+        {sortedEntries.map(({ eid, date, description, amount, type, note, cleared }) => (
           <div
             key={eid}
             className={styles.entry}
             role="button"
             tabIndex={0}
-            onClick={() => props.handleEntryClick({ eid, date, description, amount, type, note })}
+            onClick={() => props.handleEntryClick({ eid, date, description, amount, type, note, cleared })}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
-                props.handleEntryClick({ eid, date, description, amount, type, note });
+                props.handleEntryClick({ eid, date, description, amount, type, note, cleared });
               }
             }}
             aria-label={`Click to edit entry for ${description} on ${new Date(date).toLocaleDateString("en-US", {

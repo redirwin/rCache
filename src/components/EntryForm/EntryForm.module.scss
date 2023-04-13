@@ -10,6 +10,61 @@
         max-width: 800px;
         margin: 0 auto;
 
+        .topRow {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            div {
+                &:first-child {
+                    width: 75%;
+                }
+            }
+
+            .customCheckbox {
+
+                input[type='checkbox'] {
+                    display: none;
+                }
+
+                label {
+                    cursor: pointer;
+                    height: 100%;
+                    padding: 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    &::after {
+                        content: "";
+                        display: block;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 40px;
+                        height: 40px;
+                        background-color: white;
+                        border: 1px solid $gray;
+                        border-radius: 5px;
+                        position: relative;
+                        margin: 0 auto;
+                    }
+
+                    &.checked {
+                        &::after {
+                            content: "✓";
+                            font-size: 2rem;
+                            color: $primary;
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+
+
         >div {
             display: flex;
             flex-direction: column;
@@ -28,10 +83,6 @@
                 padding: 1rem;
                 border: 1px solid $gray;
                 border-radius: 5px;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                width: 100%;
             }
 
             textarea {
@@ -40,10 +91,14 @@
 
             input[type="date"] {
                 font-size: 1.2rem;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 100%;
             }
 
             // Formik Error
-            div {
+            .formikError {
                 color: $negative;
                 font-size: 0.8rem;
                 padding: 0.5rem 0 0;

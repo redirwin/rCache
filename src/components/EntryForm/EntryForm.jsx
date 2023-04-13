@@ -20,6 +20,7 @@ export default function EntryForm(props) {
       description: props.selectedEntry ? props.selectedEntry.description : "",
       note: props.selectedEntry ? props.selectedEntry.note : "",
       transactionType: props.selectedEntry ? props.selectedEntry.type : "spend",
+      cleared: props.selectedEntry ? props.selectedEntry.cleared : false,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -30,6 +31,7 @@ export default function EntryForm(props) {
         description: values.description,
         note: values.note,
         type: values.transactionType,
+        cleared: values.cleared,
         timestamp: Date.now(),
       };
       props.handleFormSubmit(newEntry);
@@ -43,20 +45,39 @@ export default function EntryForm(props) {
   return (
     <div className={styles.EntryForm}>
       <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label htmlFor="date">Transaction Date</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            placeholder="Transaction Date"
-            value={formik.values.date}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.date && formik.errors.date ? (
-            <div>{formik.errors.date}</div>
-          ) : null}
+        <div className={styles.topRow}>
+          <div className={styles.dateContainer}>
+            <label htmlFor="date">Transaction Date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              placeholder="Transaction Date"
+              value={formik.values.date}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.date && formik.errors.date ? (
+              <div className={styles.formikError}>{formik.errors.date}</div>
+            ) : null}
+          </div>
+
+          <div className={styles.customCheckbox}>
+            <label
+              htmlFor="cleared"
+              className={formik.values.cleared ? styles.checked : ""}
+            >
+              Cleared
+            </label>
+            <input
+              type="checkbox"
+              id="cleared"
+              name="cleared"
+              defaultChecked={formik.values.cleared}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </div>
         </div>
 
         <TransactionTypeButtons
@@ -82,7 +103,7 @@ export default function EntryForm(props) {
             onBlur={formik.handleBlur}
           />
           {formik.touched.amount && formik.errors.amount ? (
-            <div>{formik.errors.amount}</div>
+            <div className={styles.formikError}>{formik.errors.amount}</div>
           ) : null}
         </div>
 
@@ -99,7 +120,9 @@ export default function EntryForm(props) {
             onBlur={formik.handleBlur}
           />
           {formik.touched.description && formik.errors.description ? (
-            <div>{formik.errors.description}</div>
+            <div className={styles.formikError}>
+              {formik.errors.description}
+            </div>
           ) : null}
         </div>
 
@@ -115,7 +138,7 @@ export default function EntryForm(props) {
             onBlur={formik.handleBlur}
           ></textarea>
           {formik.touched.note && formik.errors.note ? (
-            <div>{formik.errors.note}</div>
+            <div className={styles.formikError}>{formik.errors.note}</div>
           ) : null}
         </div>
 
