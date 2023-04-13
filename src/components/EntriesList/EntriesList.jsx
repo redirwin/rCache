@@ -31,7 +31,6 @@ export default function Entries(props) {
       }
     });
     setSortedEntries(sortedEntries);
-    // console.log(sortedEntries)
   }, [props.entries]);
 
   return (
