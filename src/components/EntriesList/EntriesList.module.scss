@@ -47,8 +47,9 @@
                 }
 
                 &.checkmark {
-                    width: 1rem;
-                    height: 1rem;
+                    width: 1.25rem;
+                    height: 100%;
+                    text-align: center;
                     color: $positive;
                     font-weight: 600;
                 }

@@ -84,11 +84,14 @@ export default function EntriesList({ entries, handleEntryClick }) {
                 })}
               </p>
               <p className={styles.desc}>{description}</p>
-              {cleared && (
-                <p className={styles.checkmark} aria-label="Cleared">
-                  &#10003;
-                </p>
-              )}
+
+              <p
+                className={styles.checkmark}
+                aria-label={cleared ? "Cleared" : null}
+              >
+                {cleared && String.fromCharCode(10003)}
+              </p>
+
               <p
                 className={`${styles.amount} ${
                   type === "spend" ? styles.spend : styles.deposit
