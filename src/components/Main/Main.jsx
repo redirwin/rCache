@@ -3,6 +3,7 @@ import BalanceBanner from "../BalanceBanner/BalanceBanner";
 import NewEntryButton from "../NewEntryButton/NewEntryButton";
 import EntriesList from "../EntriesList/EntriesList";
 import EntryForm from "../EntryForm/EntryForm";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import Header from "../Header/Header";
 import styles from "./Main.module.scss";
 
@@ -10,6 +11,7 @@ export default function Main(props) {
   const [entries, setEntries] = useState(props.entries);
   const [currentView, setCurrentView] = useState("list");
   const [selectedEntry, setSelectedEntry] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
     props.entries.length && setEntries(props.entries);
@@ -29,12 +31,13 @@ export default function Main(props) {
     setSelectedEntry(null);
   };
 
-  const handleEntryDelete = (entry) => {
-    const filteredEntries = entries.filter((e) => e.eid !== entry.eid);
+  const handleEntryDelete = () => {
+    const filteredEntries = entries.filter((e) => e.eid !== selectedEntry.eid);
     setEntries(filteredEntries);
     setCurrentView("list");
     setSelectedEntry(null);
-    props.deleteEntry(props.user, entry);
+    props.deleteEntry(props.user, selectedEntry);
+    setShowConfirmModal(false);
   };
 
   const handleFormSubmit = (newEntry) => {
@@ -74,6 +77,7 @@ export default function Main(props) {
               entries={entries}
               setEntries={setEntries}
               handleEntryDelete={handleEntryDelete}
+              showConfirmModal={() => setShowConfirmModal(true)} // Add this line
             />
           </div>
         );
@@ -98,5 +102,15 @@ export default function Main(props) {
     }
   };
 
-  return <div className="Main">{renderView()}</div>;
+  return (
+    <div className="Main">
+      {renderView()}
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        message="Are you sure you want to delete this entry? This action cannot be undone."
+        onConfirm={handleEntryDelete}
+        onCancel={() => setShowConfirmModal(false)}
+      />
+    </div>
+  );
 }

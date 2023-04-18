@@ -16,7 +16,10 @@ export default function EntryForm(props) {
   const formik = useFormik({
     initialValues: {
       date: props.selectedEntry ? props.selectedEntry.date : formattedDate,
-      amount: props.selectedEntry ? props.selectedEntry.amount.toFixed(2) : "",
+      amount:
+        props.selectedEntry && props.selectedEntry.amount !== undefined
+          ? props.selectedEntry.amount.toFixed(2)
+          : "",
       description: props.selectedEntry ? props.selectedEntry.description : "",
       note: props.selectedEntry ? props.selectedEntry.note : "",
       transactionType: props.selectedEntry ? props.selectedEntry.type : "spend",
@@ -40,6 +43,21 @@ export default function EntryForm(props) {
 
   const handleTransactionTypeChange = (value) => {
     formik.setFieldValue("transactionType", value);
+  };
+
+  const handleClearedChange = (event) => {
+    formik.setFieldValue("cleared", event.target.checked);
+  };
+
+  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
+
+  const handleDeleteClick = (e) => {
+    e.preventDefault(); // Prevent form submission on button click
+    if (props.selectedEntry) {
+      props.showConfirmModal(); // Show the confirm modal
+    } else {
+      props.handleFormClose();
+    }
   };
 
   return (
@@ -73,8 +91,8 @@ export default function EntryForm(props) {
               type="checkbox"
               id="cleared"
               name="cleared"
-              defaultChecked={formik.values.cleared}
-              onChange={formik.handleChange}
+              checked={formik.values.cleared}
+              onChange={handleClearedChange}
               onBlur={formik.handleBlur}
             />
           </div>
@@ -143,23 +161,9 @@ export default function EntryForm(props) {
         </div>
 
         <div className={styles.saveControlsContainer}>
-          <button
-            aria-label="Trash and Close"
-            onClick={() => {
-              if (props.selectedEntry) {
-                if (
-                  window.confirm("Are you sure you want to delete this entry?")
-                ) {
-                  props.handleEntryDelete(props.selectedEntry);
-                }
-              } else {
-                props.handleFormClose();
-              }
-            }}
-          >
+          <button aria-label="Trash and Close" onClick={handleDeleteClick}>
             <CgTrash />
           </button>
-
           <button type="submit">SUBMIT</button>
         </div>
       </form>
