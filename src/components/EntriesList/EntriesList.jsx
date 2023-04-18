@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./EntriesList.module.scss";
 
-export default function Entries(props) {
+export default function EntriesList({ entries, handleEntryClick }) {
   const [sortedEntries, setSortedEntries] = useState([]);
 
   useEffect(() => {
     // Sort entries by date from most recent to oldest
-    const sortedEntries = props.entries.sort((a, b) => {
+    const sortedEntries = [...entries].sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
 
@@ -31,51 +31,78 @@ export default function Entries(props) {
       }
     });
     setSortedEntries(sortedEntries);
-  }, [props.entries]);
+  }, [entries]);
 
   return (
     <div className={`${styles.EntriesList}`}>
       <h2>RECENT ENTRIES</h2>
       <section>
-        {sortedEntries.map(({ eid, date, description, amount, type, note, cleared }) => (
-          <div
-            key={eid}
-            className={styles.entry}
-            role="button"
-            tabIndex={0}
-            onClick={() => props.handleEntryClick({ eid, date, description, amount, type, note, cleared })}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                props.handleEntryClick({ eid, date, description, amount, type, note, cleared });
+        {sortedEntries.map(
+          ({ eid, date, description, amount, type, note, cleared }) => (
+            <div
+              key={eid}
+              className={styles.entry}
+              role="button"
+              tabIndex={0}
+              onClick={() =>
+                handleEntryClick({
+                  eid,
+                  date,
+                  description,
+                  amount,
+                  type,
+                  note,
+                  cleared,
+                })
               }
-            }}
-            aria-label={`Click to edit entry for ${description} on ${new Date(date).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              timeZone: 'UTC',
-            })}`}
-          >
-            <p className={styles.date}>
-              {new Date(date).toLocaleDateString("en-US", {
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  handleEntryClick({
+                    eid,
+                    date,
+                    description,
+                    amount,
+                    type,
+                    note,
+                    cleared,
+                  });
+                }
+              }}
+              aria-label={`Click to edit entry for ${description} on ${new Date(
+                date
+              ).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
-                timeZone: 'UTC',
-              })}
-            </p>
-            <p className={styles.desc}>{description}</p>
-            <p
-              className={`${styles.amount} ${
-                type === "spend" ? styles.spend : styles.deposit
-              }`}
+                timeZone: "UTC",
+              })}`}
             >
-              $
-              {amount.toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </p>
-          </div>
-        ))}
+              <p className={styles.date}>
+                {new Date(date).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  timeZone: "UTC",
+                })}
+              </p>
+              <p className={styles.desc}>{description}</p>
+              {cleared && (
+                <p className={styles.checkmark} aria-label="Cleared">
+                  &#10003;
+                </p>
+              )}
+              <p
+                className={`${styles.amount} ${
+                  type === "spend" ? styles.spend : styles.deposit
+                }`}
+              >
+                $
+                {amount.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </p>
+            </div>
+          )
+        )}
       </section>
     </div>
   );
