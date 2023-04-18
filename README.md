@@ -15,7 +15,7 @@ rCache is a simple application to track variable spending from a single account.
 
 **Transaction List**
 
-The homepage displays a list of transactions, sorted by date with the most recent at the top. Users can view their balance and see how much they've spent and earned in a specified time period.
+The homepage displays a list of transactions, sorted by date with the most recent at the top. Users can view their balance including spending and deposits.
 
 Users can add new transactions by clicking the "Add Entry" button or edit existing transactions by clicking on them.
 
