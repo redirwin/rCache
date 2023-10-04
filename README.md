@@ -1,6 +1,6 @@
 ## rCache
 
-I created rCache as an easy-to-use personal finance application that allows users to stay on top of their spending.  It was developed primarily for use on mobile phone, but the web application is available and functional at larger viewport sizes. It is [available here](https://rcachev2.netlify.app/) and is free to use.
+I created rCache as an easy-to-use personal finance application that allows users to stay on top of their spending.  It was developed primarily for use on mobile phone, but the web application is available and functional at larger viewport sizes. It is [available here](https://rcache.app/) and is free to use.
 
 rCache is a simple application to track variable spending from a single account. It allows users to track deposits and expenses, as well as add, edit, and delete transactions, and track transactions as they clear the user's bank account. It is built with React and Firebase and utilizes form validation and authentication to provide a secure and seamless user experience.
 
